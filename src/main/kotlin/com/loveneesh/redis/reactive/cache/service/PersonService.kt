@@ -1,5 +1,6 @@
 package com.loveneesh.redis.reactive.cache.service
 
+import com.loveneesh.redis.reactive.cache.annotation.CacheResult
 import com.loveneesh.redis.reactive.cache.copied.CacheService
 import com.loveneesh.redis.reactive.cache.model.Person
 import org.slf4j.Logger
@@ -15,21 +16,11 @@ class PersonService {
     @Autowired
     lateinit var cacheService: CacheService
 
-    fun getPersonByName(name: String): Mono<Person> {
-        val fallBackMono = Mono.fromCallable {
-            logger.info("Mai jannat me hu -> get Person By Name called")
-            Person("lili", 18)
-        }
-
-        return cacheService.findCacheValue("person", name, fallBackMono)
-    }
-
+    @CacheResult(cacheName = "car", parameterName = "modal")
     fun oneMoreMethod(name: String): Mono<Person> {
-        val fallBackMono = Mono.fromCallable {
+        return Mono.fromCallable {
             logger.info("Mai jannat me hu -> get Person By Name called")
             Person("lili", 18)
         }
-
-        return cacheService.findCache("person", name, fallBackMono)
     }
 }
