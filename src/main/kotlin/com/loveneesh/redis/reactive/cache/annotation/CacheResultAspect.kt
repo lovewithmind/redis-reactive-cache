@@ -18,7 +18,7 @@ class CacheResultAspect {
 
     @Around("execution(* *.*(..)) && @annotation(cacheResult)")
     fun runBeforeMethod(proceedingJoinPoint: ProceedingJoinPoint, cacheResult: CacheResult): Any {
-        val key = proceedingJoinPoint.args.first() as String
+        val key = proceedingJoinPoint.args[cacheResult.parameterIndex] as String
         return reactiveRedisOperations.opsForValue().get(key)
                 .switchIfEmpty {
                     (proceedingJoinPoint.proceed() as Mono<Person>).map { person ->

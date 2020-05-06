@@ -10,7 +10,6 @@ class CacheResultParser {
     fun parseCacheResult() {
         CarService::class.memberFunctions.forEach { function ->
             function.findAnnotation<CacheResult>()?.let { cacheResult ->
-                function.findParameterByName(cacheResult.parameterName)
                 println(cacheResult.cacheName)
             }
         }

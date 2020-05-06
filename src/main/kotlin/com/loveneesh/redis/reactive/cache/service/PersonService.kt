@@ -16,7 +16,7 @@ class PersonService {
     @Autowired
     lateinit var cacheService: CacheService
 
-    @CacheResult(cacheName = "car", parameterName = "modal")
+    @CacheResult(cacheName = "car", parameterIndex = 0)
     fun oneMoreMethod(name: String): Mono<Person> {
         return Mono.fromCallable {
             logger.info("Mai jannat me hu -> get Person By Name called")

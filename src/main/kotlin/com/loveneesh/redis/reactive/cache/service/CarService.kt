@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono
 
 @Component
 class CarService {
-    @CacheResult(cacheName = "car", parameterName = "modal")
+    @CacheResult(cacheName = "car", parameterIndex = 0)
     fun getCar(modal: String): Mono<Car> {
         return Mono.just(Car("Honda", 100))
     }
